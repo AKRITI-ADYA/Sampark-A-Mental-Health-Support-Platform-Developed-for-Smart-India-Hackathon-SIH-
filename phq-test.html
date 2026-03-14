@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHQ-9 Depression Assessment - TechHealth</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="assets/css/phq-theme.css">
+  <link rel="stylesheet" href="assets/css/phq-styles.css">
+</head>
+<body>
+
+<!-- Theme Toggle Button -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+  <svg class="sun-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+  </svg>
+  <svg class="moon-icon" style="display: none;" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+  </svg>
+</button>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">TechHealth</div>
+    <div class="user-info">
+      <i class="fas fa-user-circle"></i>
+      <span id="sidebarPortal">Student Dashboard</span>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-item"><a href="student.html" class="nav-link"><i class="fas fa-home"></i><span id="navDashboard">Dashboard</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-heart-pulse"></i><span id="navAssessment">Mental Health Assessment</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-brain"></i><span id="navMindfulness">Mindfulness</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-book-open"></i><span id="navResources">Resources</span></a></div>
+    <div class="nav-item"><a href="chat-forum.html" class="nav-link"><i class="fas fa-comments"></i><span id="navSupportChat">Support Chat</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-calendar-alt"></i><span id="navAppointments">Appointments</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-line"></i><span id="navProgress">Progress</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-cog"></i><span id="navSettings">Settings</span></a></div>
+    <div class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i><span id="navLogout">Logout</span></a></div>
+  </nav>
+</div>
+
+<div class="main-content">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h1 id="page-title">PHQ-9 Depression Assessment</h1>
+    </div>
+    <div class="topbar-right">
+      <div class="language-selector">
+        <select id="languageSelect">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="ur">اردو (Urdu)</option>
+          <option value="ks">کٲشُر (Kashmiri)</option>
+        </select>
+      </div>
+      <button id="panicButton" class="panic-btn">
+        <i class="fas fa-exclamation-triangle"></i> <span id="panicText">Emergency Help</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Introduction Section -->
+    <div class="intro-section" id="introSection">
+      <div class="intro-card">
+        <div class="intro-header">
+          <div class="intro-icon">
+            <i class="fas fa-heart-pulse"></i>
+          </div>
+          <h2 id="introTitle">Mental Health Assessment (PHQ-9)</h2>
+        </div>
+        
+        <div class="intro-content">
+          <p id="introDescription">
+            The PHQ-9 is a clinically validated assessment tool used to screen for depression and monitor symptom severity. 
+            This confidential questionnaire takes about 5 minutes to complete and can help you and healthcare providers 
+            understand your mental health better.
+          </p>
+          
+          <div class="intro-features">
+            <div class="feature-item">
+              <i class="fas fa-shield-alt"></i>
+              <span id="featurePrivacy">100% Confidential</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-clock"></i>
+              <span id="featureTime">5 Minutes</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-user-md"></i>
+              <span id="featureClinical">Clinically Validated</span>
+            </div>
+          </div>
+          
+          <div class="important-notice">
+            <i class="fas fa-info-circle"></i>
+            <p id="importantNotice">
+              <strong>Important:</strong> This assessment is not a diagnostic tool and should not replace professional 
+              medical advice. If you're experiencing thoughts of self-harm, please seek immediate help.
+            </p>
+          </div>
+          
+          <button class="start-btn" id="startAssessment">
+            <i class="fas fa-play"></i>
+            <span id="startText">Start Assessment</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assessment Section -->
+    <div class="assessment-section" id="assessmentSection" style="display: none;">
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text">
+          <span id="questionProgress">Question 1 of 9</span>
+        </div>
+      </div>
+
+      <div class="question-container" id="questionContainer">
+        <div class="question-card">
+          <div class="question-number" id="questionNumber">1</div>
+          <h3 class="question-text" id="questionText">
+            Over the last 2 weeks, how often have you been bothered by little interest or pleasure in doing things?
+          </h3>
+          
+          <div class="options-container" id="optionsContainer">
+            <label class="option-item">
+              <input type="radio" name="q1" value="0">
+              <div class="option-content">
+                <div class="option-text" data-key="notAtAll">Not at all</div>
+              </div>
+            </label>
+            <label class="option-item">
+              <input type="radio" name="q1" value="1">
+              <div class="option-content">
+                <div class="option-text" data-key="severalDays">Several days</div>
+              </div>
+            </label>
+            <label class="option-item">
+              <input type="radio" name="q1" value="2">
+              <div class="option-content">
+                <div class="option-text" data-key="moreThanHalf">More than half the days</div>
+              </div>
+            </label>
+            <label class="option-item">
+              <input type="radio" name="q1" value="3">
+              <div class="option-content">
+                <div class="option-text" data-key="nearlyEvery">Nearly every day</div>
+              </div>
+            </label>
+          </div>
+          
+          <div class="question-navigation">
+            <button class="nav-btn prev-btn" id="prevBtn" disabled>
+              <i class="fas fa-arrow-left"></i>
+              <span id="prevText">Previous</span>
+            </button>
+            <button class="nav-btn next-btn" id="nextBtn" disabled>
+              <span id="nextText">Next</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results-section" id="resultsSection" style="display: none;">
+      <div class="results-card">
+        <div class="results-header">
+          <div class="results-icon" id="resultsIcon">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <h2 id="resultsTitle">Your Assessment Results</h2>
+          <p class="results-date" id="resultsDate">Completed on September 23, 2025</p>
+        </div>
+        
+        <div class="score-display">
+          <div class="score-circle" id="scoreCircle">
+            <div class="score-value" id="scoreValue">0</div>
+            <div class="score-total">/27</div>
+          </div>
+          <div class="score-interpretation">
+            <h3 id="severityLevel">Minimal Depression</h3>
+            <p id="severityDescription">Your responses suggest minimal or no depression symptoms.</p>
+          </div>
+        </div>
+        
+        <div class="results-details">
+          <div class="detail-card">
+            <h4 id="symptomBreakdownTitle">Symptom Breakdown</h4>
+            <div class="chart-container">
+              <canvas id="symptomsChart"></canvas>
+            </div>
+          </div>
+          
+          <div class="detail-card">
+            <h4 id="recommendationsTitle">Recommendations</h4>
+            <div class="recommendations-list" id="recommendationsList">
+              <!-- Recommendations will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="results-actions">
+          <button class="action-btn primary" id="saveResults">
+            <i class="fas fa-save"></i>
+            <span id="saveText">Save Results</span>
+          </button>
+          <button class="action-btn secondary" id="shareResults">
+            <i class="fas fa-share-alt"></i>
+            <span id="shareText">Share with Counselor</span>
+          </button>
+          <button class="action-btn tertiary" id="retakeTest">
+            <i class="fas fa-redo"></i>
+            <span id="retakeText">Retake Assessment</span>
+          </button>
+        </div>
+        
+        <div class="professional-help">
+          <div class="help-notice" id="professionalNotice">
+            <i class="fas fa-user-md"></i>
+            <p>
+              <strong id="rememberTitle">Remember:</strong>
+              <span id="professionalMessage">This assessment is a screening tool. For a complete evaluation, please consult with a mental health professional.</span>
+            </p>
+          </div>
+          <button class="help-btn" id="findCounselor">
+            <i class="fas fa-search"></i>
+            <span id="findCounselorText">Find a Counselor</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Section -->
+    <div class="history-section" id="historySection">
+      <div class="history-card">
+        <div class="section-header">
+          <h3 id="historyTitle">Assessment History</h3>
+          <button class="view-all-btn" id="viewAllHistory">
+            <span id="viewAllText">View All</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+        
+        <div class="history-timeline" id="historyTimeline">
+          <!-- History items will be populated by JavaScript -->
+        </div>
+        
+        <div class="trends-chart">
+          <h4 id="trendsTitle">Depression Score Trends</h4>
+          <div class="chart-container">
+            <canvas id="trendsChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Crisis Support Modal -->
+<div class="modal hidden" id="crisisModal">
+  <div class="modal-content">
+    <div class="modal-header crisis-header">
+      <h3 id="crisisTitle">🚨 Immediate Support Available</h3>
+      <button class="close-btn" id="closeCrisisModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="crisis-resources">
+        <div class="resource-item">
+          <i class="fas fa-phone"></i>
+          <div>
+            <strong id="suicideLifeline">National Suicide Prevention Lifeline</strong>
+            <p>988 - Available 24/7</p>
+          </div>
+        </div>
+        <div class="resource-item">
+          <i class="fas fa-comments"></i>
+          <div>
+            <strong id="crisisText">Crisis Text Line</strong>
+            <p>Text HOME to 741741</p>
+          </div>
+        </div>
+        <div class="resource-item">
+          <i class="fas fa-globe"></i>
+          <div>
+            <strong id="international">International Support</strong>
+            <p>befrienders.org</p>
+          </div>
+        </div>
+      </div>
+      <div class="crisis-actions">
+        <button class="crisis-btn primary" id="callNow">
+          <i class="fas fa-phone"></i>
+          <span id="callNowText">Call 988 Now</span>
+        </button>
+        <a href="chat-forum.html?emergency=true" class="crisis-btn secondary">
+          <i class="fas fa-comments"></i>
+          <span id="chatNowText">Emergency Chat</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/phq-theme.js"></script>
+<script src="assets/js/phq-translations.js"></script>
+<script src="assets/js/phq-questions.js"></script>
+<script src="assets/js/phq-assessment.js"></script>
+<script src="assets/js/phq-analysis.js"></script>
+<script src="assets/js/phq-app.js"></script>
+
+</body>
+</html>

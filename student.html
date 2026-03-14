@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Wellness Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="assets/css/student-theme.css">
+  <link rel="stylesheet" href="assets/css/student-styles.css">
+</head>
+<body>
+
+<!-- Theme Toggle Button -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+  <!-- Sun Icon (Light Mode) -->
+  <svg class="sun-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+  </svg>
+  <!-- Moon Icon (Dark Mode) -->
+  <svg class="moon-icon" style="display: none;" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+  </svg>
+</button>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">TechHealth</div>
+    <div class="user-info">
+      <i class="fas fa-user-circle"></i>
+      <span>Student Dashboard</span>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-home"></i><span>Dashboard</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-brain"></i><span>Mindfulness</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-book-open"></i><span>Resources</span></a></div>
+    <div class="nav-item"><a href="chat-forum.html" class="nav-link"><i class="fas fa-comments"></i><span>Support Chat</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-calendar-alt"></i><span>Appointments</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-line"></i><span>Progress</span></a></div>
+    <div class="nav-item"><a href="#" class="nav-link"><i class="fas fa-cog"></i><span>Settings</span></a></div>
+    <div class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></div>
+  </nav>
+</div>
+
+<div class="main-content">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="mobile-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <h1 id="page-title">Student Wellness Dashboard</h1>
+    </div>
+    <div class="topbar-right">
+      <div class="language-selector">
+        <select id="languageSelect">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="ur">اردو (Urdu)</option>
+          <option value="ks">کٲشُر (Kashmiri)</option>
+        </select>
+      </div>
+      <button id="panicButton" class="panic-btn">
+        <i class="fas fa-exclamation-triangle"></i> Panic
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="welcome-section">
+      <div class="welcome-text">
+        <h2 id="welcome-message">Welcome to Your Wellness Space! 🌟</h2>
+        <p id="welcome-description">Take a moment to check in with yourself and explore activities designed to support your mental wellbeing.</p>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="activities-section">
+        <h3 class="section-title">
+          <i class="fas fa-heart"></i>
+          <span id="activities-title">Exercises & Meditation</span>
+        </h3>
+
+        <div class="activity-grid">
+          <div class="activity-card" onclick="startActivity('breathing')">
+            <div class="activity-icon breathing"><i class="fas fa-wind"></i></div>
+            <h4 id="breathing-title">Breathing Exercises</h4>
+            <div class="activity-progress" id="breathing-progress">0 Completed</div>
+          </div>
+          <div class="activity-card" onclick="startActivity('journaling')">
+            <div class="activity-icon journaling"><i class="fas fa-pen-fancy"></i></div>
+            <h4 id="journaling-title">Journaling Prompts</h4>
+            <div class="activity-progress" id="journaling-progress">0 Completed</div>
+          </div>
+          <div class="activity-card" onclick="startActivity('mindfulness')">
+            <div class="activity-icon mindfulness"><i class="fas fa-lotus-position"></i></div>
+            <h4 id="mindfulness-title">Mindfulness Activities</h4>
+            <div class="activity-progress" id="mindfulness-progress">0 Completed</div>
+          </div>
+          <div class="activity-card" onclick="startActivity('coping')">
+            <div class="activity-icon coping"><i class="fas fa-shield-alt"></i></div>
+            <h4 id="coping-title">Coping Skills</h4>
+            <div class="activity-progress" id="coping-progress">0 Practiced</div>
+          </div>
+          <div class="activity-card" onclick="startActivity('meditation')">
+            <div class="activity-icon meditation"><i class="fas fa-leaf"></i></div>
+            <h4 id="meditation-title">Meditation Classes</h4>
+            <div class="activity-progress" id="meditation-progress">0 Attended</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-stats">
+        <div class="stat-card">
+          <div class="stat-value" id="streak-value">0</div>
+          <div class="stat-label" id="streak-label">Day Streak 🔥</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stress-level">5</div>
+          <div class="stat-label" id="stress-label">Stress Level /10</div>
+        </div>
+        <div class="stat-card">
+          <div class="achievement-badge">
+            <i class="fas fa-trophy"></i>
+            <span id="achievement-text">Getting Started!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <h3 class="section-title"><i class="fas fa-chart-area"></i> <span id="progress-title">Progress & Insights</span></h3>
+      <div class="progress-grid">
+        <div class="progress-item">
+          <div class="progress-circle" style="background: conic-gradient(var(--accent-gradient-start) 126deg, var(--border-card) 0deg);">
+            <div class="progress-value">35%</div>
+          </div>
+          <div class="progress-label" id="mood-label">Mood Tracker</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-circle" style="background: conic-gradient(#F7DC6F 180deg, var(--border-card) 0deg);">
+            <div class="progress-value">50%</div>
+          </div>
+          <div class="progress-label" id="goals-label">Weekly Goals</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/student-theme.js"></script>
+<script src="assets/js/student-translations.js"></script>
+<script src="assets/js/student-dashboard.js"></script>
+
+</body>
+</html>
